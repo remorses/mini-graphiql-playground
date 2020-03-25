@@ -21,11 +21,11 @@ const App = () => {
     const { result, loading } = usePromise(fetchShema, { cache: true })
 
     if (loading) {
-        return <div className=''>loading</div>
+        return <div >loading</div>
     }
 
     return (
-        <div>
+        <div style={{margin: '40px'}}>
             <MiniGraphiQL schema={result} query={query1} />
         </div>
     )

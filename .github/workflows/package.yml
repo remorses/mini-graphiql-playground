@@ -16,7 +16,7 @@ jobs:
                   registry-url: https://registry.npmjs.org/
             - run: yarn
             - run: yarn test
-            - run: tsc
+            - run: yarn build
             - run: tsc -m es6 --outDir esm
             - name: Bump version
               uses: remorses/bump-version@js
