@@ -13,8 +13,38 @@
 yarn add mini-graphiql
 ```
 
-## Usage
+## Usage
 
-```mdx
-import {} from 'mini-graphiql'
+```tsx
+import React from 'react'
+import { usePromise } from 'react-extra-hooks' // or any fetcher you want
+import 'mini-graphiql/dist/style.css'
+import { getSchemaFormUrl, MiniGraphiQL } from 'mini-graphiql'
+
+const query1 = `
+{
+    continents {
+      code
+      name
+    }
+}
+`
+
+const App = () => {
+    const fetchShema = () => {
+        return getSchemaFormUrl({ url: 'https://countries.trevorblades.com' })
+    }
+    const { result, loading } = usePromise(fetchShema, { cache: true })
+
+    if (loading) {
+        return <div >loading</div>
+    }
+
+    return (
+        <div style={{margin: '40px'}}>
+            <MiniGraphiQL schema={result} query={query1} />
+        </div>
+    )
+}
+
 ```
