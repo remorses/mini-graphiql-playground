@@ -1,7 +1,9 @@
 export { MiniGraphiQL } from './MiniGraphiQL'
-import {buildClientSchema, getIntrospectionQuery} from 'graphql'
+import { HttpLink } from 'apollo-link-http'
+import { buildClientSchema, getIntrospectionQuery } from 'graphql'
+import { introspectSchema, makeRemoteExecutableSchema } from 'graphql-tools'
 
-export async function fetchRemoteSchema({url, insecure=false}) {
+export async function fetchRemoteSchema({ url, insecure = false }) {
     // const agent =
     //     /^https:\/\//i.test(url) && insecure
     //         ? new https.Agent({ rejectUnauthorized: false })
@@ -34,10 +36,17 @@ export async function fetchRemoteSchema({url, insecure=false}) {
                 )}`,
             )
         }
-        return buildClientSchema(result.data)
+        const schema = await buildClientSchema(result.data)
+        return schema
     } catch (e) {
         throw new Error(
             `Error while fetching introspection query: ${e.message}`,
         )
     }
+}
+
+export async function getSchemaFormUrl({url: uri}) {
+    const link = new HttpLink({ uri, fetch: fetch })
+    const schema = await introspectSchema(link)
+    return makeRemoteExecutableSchema({ schema, link })
 }
