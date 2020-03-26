@@ -2,7 +2,6 @@ import React from 'react'
 import marked from 'marked'
 import { graphql, formatError, parse, typeFromAST } from 'graphql'
 
-
 export class MiniGraphiQL extends React.Component {
     // Lifecycle
 
@@ -26,6 +25,7 @@ export class MiniGraphiQL extends React.Component {
         const editor = (
             <QueryEditor
                 key='query-editor'
+                style={this.props.styles?.editor}
                 schema={this.props.schema}
                 value={this.state.query}
                 onEdit={this._handleEditQuery.bind(this)}
@@ -256,7 +256,13 @@ class QueryEditor extends React.Component {
     }
 
     render() {
-        return <div className='query-editor' ref={(e) => (this.domNode = e)} />
+        return (
+            <div
+                className='query-editor'
+                style={this.props.style}
+                ref={(e) => (this.domNode = e)}
+            />
+        )
     }
 }
 
@@ -589,3 +595,5 @@ function getVariableToType(schema, documentStr) {
 
     return {}
 }
+
+export default MiniGraphiQL

@@ -1,7 +1,41 @@
-export { MiniGraphiQL } from './MiniGraphiQL'
+import React from 'react'
+import { MiniGraphiQL as MiniGraphiQLComponent } from './MiniGraphiQL'
 import { HttpLink } from 'apollo-link-http'
 import { buildClientSchema, getIntrospectionQuery } from 'graphql'
 import { introspectSchema, makeRemoteExecutableSchema } from 'graphql-tools'
+import { usePromise } from 'react-extra-hooks'
+
+export const MiniGraphiQL = ({ url = '', height = '200px', ...rest }) => {
+    const fetchShema = () => {
+        return getSchemaFormUrl({ url })
+    }
+    const { result, loading, error } = usePromise(url ? fetchShema : null, {
+        promizeId: url,
+        cache: true,
+    })
+
+    if (loading) {
+        return <Container height={height}>loading...</Container>
+    }
+
+    if (error) {
+        return (
+            <Container height={height} color='red'>
+                error: {error?.message}
+            </Container>
+        )
+    }
+
+    return (
+        <Container height={height}>
+            <MiniGraphiQLComponent
+                styles={{ editor: { height } }}
+                schema={result}
+                {...rest}
+            />
+        </Container>
+    )
+}
 
 export async function fetchRemoteSchema({ url, insecure = false }) {
     // const agent =
@@ -45,8 +79,25 @@ export async function fetchRemoteSchema({ url, insecure = false }) {
     }
 }
 
-export async function getSchemaFormUrl({url: uri}) {
+export async function getSchemaFormUrl({ url: uri }) {
     const link = new HttpLink({ uri, fetch: fetch })
     const schema = await introspectSchema(link)
     return makeRemoteExecutableSchema({ schema, link })
+}
+
+const Container = ({ height, color = 'black', ...props }) => {
+    return (
+        <div
+            style={{
+                height,
+                width: '100%',
+                color,
+                background: '#eee',
+                justifyContent: 'center',
+                alignItems: 'center',
+                display: 'flex',
+            }}
+            {...props}
+        />
+    )
 }

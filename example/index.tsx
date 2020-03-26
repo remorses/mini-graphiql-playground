@@ -15,18 +15,12 @@ const query1 = `
 `
 
 const App = () => {
-    const fetchShema = () => {
-        return getSchemaFormUrl({ url: 'https://countries.trevorblades.com' })
-    }
-    const { result, loading } = usePromise(fetchShema, { cache: true })
-
-    if (loading) {
-        return <div >loading</div>
-    }
-
     return (
-        <div style={{margin: '40px'}}>
-            <MiniGraphiQL schema={result} query={query1} />
+        <div style={{ margin: '40px' }}>
+            <MiniGraphiQL
+                url='https://countries.trevorblades.com'
+                query={query1}
+            />
         </div>
     )
 }
