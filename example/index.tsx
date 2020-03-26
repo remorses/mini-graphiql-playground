@@ -1,9 +1,8 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { usePromise } from 'react-extra-hooks'
 import 'regenerator-runtime/runtime'
 import '../dist/style.css'
-import { getSchemaFormUrl, MiniGraphiQL } from '../src'
+import { MiniGraphiQL } from '../src'
 
 const query1 = `
 {

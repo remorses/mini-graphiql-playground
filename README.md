@@ -13,14 +13,16 @@
 yarn add mini-graphiql
 ```
 
-## Usage
+## Usage in mdx
 
-```tsx
-import React from 'react'
+```mdx
+---
+route: /docs/pagination
+title: pagination
+---
+import { MiniGraphiQL } from 'mini-graphiql'
 import 'mini-graphiql/dist/style.css'
-import { getSchemaFormUrl, MiniGraphiQL } from 'mini-graphiql'
-
-const query1 = `
+export const query1 = `
 {
     continents {
       code
@@ -28,17 +30,10 @@ const query1 = `
     }
 }
 `
+## Paging forward
 
-const App = () => {
-    return (
-        <div style={{ margin: '40px' }}>
-            <MiniGraphiQL
-                url='https://countries.trevorblades.com'
-                query={query1}
-            />
-        </div>
-    )
-}
+You page forward using forst and after arguments.
 
+<MiniGraphiQL url='https://countries.trevorblades.com' query={query1} />
 
 ```
