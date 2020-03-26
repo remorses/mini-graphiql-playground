@@ -35,7 +35,6 @@
         "mocha": "^6.1.4",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
-        "react-extra-hooks": "^2.3.1",
         "regenerator-runtime": "^0.13.5",
         "sucrase": "^3.12.1",
         "typescript": "^3.7.5"
@@ -46,6 +45,7 @@
         "codemirror-graphql": "^0.11.6",
         "graphql": "^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0",
         "graphql-tools": "^4.0.7",
-        "marked": "^0.8.2"
+        "marked": "^0.8.2",
+        "react-extra-hooks": "^2.3.1"
     }
 }
