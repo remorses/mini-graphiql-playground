@@ -6,6 +6,7 @@
     "main": "dist/index.js",
     "module": "esm/index.js",
     "types": "dist/index.d.ts",
+    "sideEffects": false,
     "mocha": {
         "require": "tests/init.js",
         "spec": "tests/**.ts",
