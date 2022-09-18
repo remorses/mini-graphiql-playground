@@ -32,7 +32,7 @@ export const query1 = `
 `
 ## Paging forward
 
-You page forward using forst and after arguments.
+Page forward using `first` and `after` arguments.
 
 <MiniGraphiQL url='https://countries.trevorblades.com' query={query1} />
 
